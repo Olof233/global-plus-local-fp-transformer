@@ -1,11 +1,11 @@
-OUTPUT_DIR: ''
+OUTPUT_DIR: 'D:\desktop\1\z\feature\transformer\original-global-plus-local-fp-transformer\pretrained'
 WORKERS: 6
 PRINT_FREQ: 50
 AMP:
   ENABLED: true
 MODEL:
   NAME: cvt_detr
-  PRETRAINED: 'models/global.pth'
+  PRETRAINED: 'D:\desktop\1\z\feature\transformer\original-global-plus-local-fp-transformer\pretrained\CvT-13-384x384-IN-22k.pth'
   PRE_MODE: 'same'
   GLOBAL_EMB_SZ: 192
   TOKEN_EMB_SZ: 64
@@ -65,10 +65,11 @@ TEST:
   IMAGE_SIZE: [384, 384]
   DPPRE: local
   INTERPOLATION: 3
+  MODEL_FILE: 'D:\desktop\1\z\feature\transformer\original-global-plus-local-fp-transformer\models\global_plus_local.pth'
 TRAIN:
   BATCH_SIZE_PER_GPU: 8
   LR: 0.0001
-  IMAGE_SIZE: [384, 384]
+  IMAGE_SIZE: [186, 186]
   BEGIN_EPOCH: 0
   END_EPOCH: 100
   LR_SCHEDULER:

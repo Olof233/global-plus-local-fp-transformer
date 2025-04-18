@@ -126,7 +126,7 @@ def get_resolution(original_resolution):
     return (160, 128) if area < 96*96 else (512, 480)
 
 
-def build_transforms(cfg, is_train=True):
+def build_transforms(cfg, is_train=True, forcelocal=False):
     if cfg.AUG.TIMM_AUG.USE_TRANSFORM and is_train:
         logging.info('=> use timm transform for training')
         timm_cfg = cfg.AUG.TIMM_AUG
@@ -209,10 +209,10 @@ def build_transforms(cfg, is_train=True):
                 T.ToTensor(),
                 normalize,
             ])
+        elif cfg.TEST.DPPRE == 'local' or forcelocal == True:
+            transforms = DPPRE(cfg.TEST.IMAGE_SIZE[1], cfg.TEST.IMAGE_SIZE[0])
         elif cfg.TEST.DPPRE == 'global':
             transforms = DPPREGlobal(cfg.TEST.IMAGE_SIZE[1], cfg.TEST.IMAGE_SIZE[0])
-        elif cfg.TEST.DPPRE == 'local':
-            transforms = DPPRE(cfg.TEST.IMAGE_SIZE[1], cfg.TEST.IMAGE_SIZE[0])
         else:
             transforms = T.Compose([
                 T.Resize(

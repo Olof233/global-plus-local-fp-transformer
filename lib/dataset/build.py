@@ -162,7 +162,7 @@ class CustomDatasetOnlyImages(torch.utils.data.Dataset):
 class CustomDatasetInference(torch.utils.data.Dataset):
     def __init__(self, cfg, is_train):
         self.transforms = build_transforms(cfg, is_train=False)         # we dont want augs
-
+        self.cfg = cfg
         data_dir = cfg.DATASET.VAL_IMGS
         global_emb_dir = cfg.DATASET.VAL_GLOBAL_EMBS
         token_emb_dir = cfg.DATASET.VAL_TOKEN_EMBS
@@ -209,8 +209,8 @@ class CustomDatasetInference(torch.utils.data.Dataset):
             inds = np.argsort(-mnt[:, -1])
             mnt = mnt[inds, :-1]
             local_emb = local_emb[inds]
-
-            img, mnt, local_emb = self.transforms(img, mnt, local_emb)
+            new_transforms = build_transforms(self.cfg, is_train=False, forcelocal=True)
+            img, mnt, local_emb = new_transforms(img, mnt, local_emb)
 
             # changing the range of values
             mnt[:, 0] = mnt[:, 0] / self.img_sz[0]

@@ -104,11 +104,11 @@ for root, dirs, files in os.walk(dataset_dir):
                     threshold_global_otsu = threshold_otsu(im)
                     im = np.asarray((im > threshold_global_otsu), dtype='uint8')
 
-                    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (args.morph_close_sz, args.morph_close_sz))
+                    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
                     im = cv2.morphologyEx(im, cv2.MORPH_CLOSE, kernel)
-                    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
+                    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
                     im = cv2.morphologyEx(im, cv2.MORPH_OPEN, kernel)
-                    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10, 10))
+                    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
                     im = cv2.dilate(im, kernel)
                     im = im * 255
 

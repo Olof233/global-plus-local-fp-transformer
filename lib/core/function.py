@@ -228,7 +228,7 @@ def inference(config, val_loader, model, criterion, output_dir, tb_log_dir,
     if 'posori'in results:
         for i in range(identifiers.shape[0]):
             subject = '_'.join(identifiers[i].split('_')[:-1])
-            in_file = os.path.join(config.DATASET.VAL_TOKEN_EMBS, subject, identifiers[i]+'.npy')
+            in_file = os.path.join(config.DATASET.VAL_TOKEN_EMBS, identifiers[i].split('\\')[-1]+'.npy')
             in_file = np.load(in_file, allow_pickle=True, encoding='bytes').item()
 
             if b'patches' in in_file:
@@ -244,8 +244,8 @@ def inference(config, val_loader, model, criterion, output_dir, tb_log_dir,
 
             in_file[b'des'] = np.expand_dims(results['embs'][i], axis=0)
 
-            save_path = os.path.join(config.OUTPUT_DIR, subject, identifiers[i]+'.pkl')
-            pardir = '/'.join(save_path.split('/')[:-1])
+            save_path = os.path.join(config.OUTPUT_DIR, identifiers[i].split('\\')[-1]+'.pkl')
+            pardir = '/'.join(save_path.split('\\')[:-1])
             if not os.path.exists(pardir):
                 os.makedirs(pardir)
             with open(save_path, 'wb') as handle:

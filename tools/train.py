@@ -43,7 +43,7 @@ def parse_args():
 
     parser.add_argument('--cfg',
                         help='experiment configure file name',
-                        required=True,
+                        default='experiments/global_plus_local.yaml',
                         type=str)
 
     # distributed training
@@ -233,4 +233,18 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    args = parse_args()
+
+    init_distributed(args)
+    setup_cudnn(config)
+
+    update_config(config, args)
+    final_output_dir = create_logger(config, args.cfg, 'train')
+    tb_log_dir = final_output_dir
+
+    output_config_path = os.path.join(final_output_dir, 'config.yaml')
+    logging.info("=> saving config into: {}".format(output_config_path))
+    save_config(config, output_config_path)
+    
+    model = build_model(config) # model -> class
+    #main()

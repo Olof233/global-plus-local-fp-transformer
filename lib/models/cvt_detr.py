@@ -267,11 +267,14 @@ class CVTDETR(nn.Module):
         if pre_mode == 'same':
             sd = torch.load(pretrained)
             nsd = self.state_dict()
+            #print ('sd:',sd.keys())
+            #print ('nsd:',nsd.keys())
             for k,v in sd.items():
                 if k in nsd.keys():
                     nsd[k] = v
                     print(k, "loaded")
                 else:
+                    # pass
                     print(k, "not loaded")
             self.load_state_dict(nsd)
 

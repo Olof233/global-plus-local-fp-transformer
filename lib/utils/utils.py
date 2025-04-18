@@ -70,8 +70,8 @@ def init_distributed(args):
 
 
 def setup_cudnn(config):
-    cudnn.benchmark = config.CUDNN.BENCHMARK
-    torch.backends.cudnn.deterministic = config.CUDNN.DETERMINISTIC
+    cudnn.benchmark = config.CUDNN.BENCHMARK #加速
+    torch.backends.cudnn.deterministic = config.CUDNN.DETERMINISTIC #固定随机数
     torch.backends.cudnn.enabled = config.CUDNN.ENABLED
 
 

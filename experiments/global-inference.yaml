@@ -1,4 +1,4 @@
-OUTPUT_DIR: ''
+OUTPUT_DIR: 'D:\desktop\1\z\SOCOFing\global2'
 WORKERS: 6
 PRINT_FREQ: 50
 AMP:
@@ -56,15 +56,16 @@ DATASET:
   TRAIN_IMGS: ''
   TRAIN_GLOBAL_EMBS: ''
   TRAIN_TOKEN_EMBS: ''
-  VAL_DATASET: 'onlyImages'
-  VAL_IMGS: 'sample_data'
-  VAL_GLOBAL_EMBS: ''
-  VAL_TOKEN_EMBS: ''
+  VAL_DATASET: 'inference'
+  VAL_IMGS: 'D:\desktop\1\z\SOCOFing\cropped_images'
+  VAL_GLOBAL_EMBS: 'D:\desktop\1\z\SOCOFing\global'
+  VAL_TOKEN_EMBS: 'D:\desktop\1\z\SOCOFing\lcoal'
 TEST:
   BATCH_SIZE_PER_GPU: 8
   IMAGE_SIZE: [384, 384]
   DPPRE: global
   INTERPOLATION: 3
+  MODEL_FILE: 'D:\desktop\1\z\feature\transformer\original-global-plus-local-fp-transformer\models\global.pth'
 TRAIN:
   BATCH_SIZE_PER_GPU: 8
   LR: 0.0001

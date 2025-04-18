@@ -38,7 +38,7 @@ def parse_args():
 
     parser.add_argument('--cfg',
                         help='experiment configure file name',
-                        required=True,
+                        default=r'D:\desktop\1\z\feature\transformer\original-global-plus-local-fp-transformer\experiments\copy.yaml' ,
                         type=str)
 
     # distributed training

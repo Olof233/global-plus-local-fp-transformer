@@ -16,11 +16,13 @@ def get_metric(embs_dict, people, accq, score_path=None, people_start=1, accq_st
 			for f_2 in range(f_1 + 1, accq + accq_start):
 				k_1 = str(p) + '_' + str(f_1)
 				k_2 = str(p) + '_' + str(f_2)
-				try:
-					score = (embs_dict[k_1].reshape(1, -1) @ embs_dict[k_2].reshape(1, -1).T).item()
-					ts.append(score)
-				except Exception as e:
-					print(e, "SKIPPED:", k_1, k_2)
+				score = (embs_dict[k_1].reshape(1, -1) @ embs_dict[k_2].reshape(1, -1).T).item()
+				ts.append(score)
+				# try:
+				# 	score = (embs_dict[k_1].reshape(1, -1) @ embs_dict[k_2].reshape(1, -1).T).item()
+				# 	ts.append(score)
+				# except Exception as e:
+				# 	print(e, "SKIPPED:", k_1, k_2)
 
 	# false scores
 	print("Calculating False Scores: ")
@@ -29,11 +31,13 @@ def get_metric(embs_dict, people, accq, score_path=None, people_start=1, accq_st
 		for p_2 in range(p_1 + 1, people_start + people):
 			k_1 = str(p_1) + '_' + str(1)
 			k_2 = str(p_2) + '_' + str(1)
-			try:
-				score = (embs_dict[k_1].reshape(1, -1) @  embs_dict[k_2].reshape(1, -1).T).item()
-				fs.append(score)
-			except Exception as e:
-				print(e, "SKIPPED:", k_1, k_2)
+			score = (embs_dict[k_1].reshape(1, -1) @  embs_dict[k_2].reshape(1, -1).T).item()
+			fs.append(score)
+			# try:
+			# 	score = (embs_dict[k_1].reshape(1, -1) @  embs_dict[k_2].reshape(1, -1).T).item()
+			# 	fs.append(score)
+			# except Exception as e:
+			# 	print(e, "SKIPPED:", k_1, k_2)
 
 	# metrics
 	ts, fs = np.array(ts), np.array(fs)
@@ -67,5 +71,9 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 
 	embs_dict = np.load(args.embs_path, allow_pickle=True).item()
+	newdict = {}
+	# 'D:\\desktop\\1\\z\\SOCOFing\\cropped_images\\10_1'
+	for file in embs_dict.keys():
+		newdict[file.split('\\')[-1]] = embs_dict[file]
 
-	get_metric(embs_dict, args.people, args.accq, args.score_path, args.people_start, args.accq_start)
+	get_metric(newdict, args.people, args.accq, args.score_path, args.people_start, args.accq_start)
